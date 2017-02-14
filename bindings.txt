@@ -1,0 +1,83 @@
+val x = 1 
+val f = (fn y => y x) returns 1 to its argument
+val x = 7
+val g = (fn y => x - y) returns 7 - its argument
+val ans = f g sends (7-its args) to f which has 1 as argument so (7-1) = 6
+===================================
+fun f p =
+let
+val x = 3
+val y = 4
+val (z,w) = p ==> recieves ( 1+its args, 2*args)
+in
+(z (w y)) + x returns (z (w 4)) + 3 ==> (1 + (2 * 4)) + 3) = 12
+end
+val x = 1
+val y = 2
+val ans = f((fn z => x + z), (fn x => x + x + 0)) calls f with ( 1+its args, 2*args)
+=========================================
+val f = fn x => List.map hd x
+val ans = f [[1,2,3],[4,5]]
+returns [[1],[4]]
+if it's tl instead of hd then returns [[2,3],[5]]
+==================================
+val x = 1
+val y = 2
+val f = fn y => x + y returns 1+its arg ==> 1+5 = 6
+val x = 5
+val y = 10
+val ans = f x + y calls f 5 and then adds 10 => 6+10 = 16
+===================================
+val x = 1
+val y = 2
+val z = 3
+fun f x = let val x = 10 in fn y => x+y+z end returns 10+3 to its arg ==> 13. doesn't use x=2 becasue there's x=10
+val y = 2
+val ans = f y 7 this is like (f y) 7 i.e. sends f 2. ==>adds 13 to its args => 13 + 7 = 20
+======================================
+val x = 1
+fun f y = recieves 4 as y
+let
+val x = y+1 ==> 5
+in 
+fn z => x +y + z returns 2*y+1 to its args => returns 9 to its arg
+end 
+val x = 3 
+val g = f 4 returns function that add 9 to its arg
+val y = 5 
+val z = g 6 ==> 9+6=15
+====================================
+fun f g = recieves (4 + args)
+let 
+val x = 3 
+in 
+g 2 => returns 4 + 2 = 6
+end 
+val x =4 
+fun h y = x+y  =>adds 4 to its arg
+val z = f h ==>6
+==========================
+fun f1 y = 
+let 
+val x = y+1 
+in 
+fn z => x+y+z returns 2*y+1 to its arg => 2*7+1 = 15
+end 
+fun f2 y = 
+let 
+val q =y+1 
+in 
+fn z => q+y+z returns 2*y +1 to its arg =>2*7+1 = 15
+end 
+val x = 17 
+val a1 = (f1 7) 4 applies or adds 15 to 4 = 19
+val a2 = (f2 7) 4 =>19
+a' parameter means a function
+pure function means having no side effects. ml is not a pure language.
+fn x > x-y doesn't mean x-y it means return -y to its argument
+fn x => if x = 10 then x+y else x-y means return if argument =10 then argument+y else argument -y
+for any function, its type include what it takes and what it returns e.g. (f (g n)) is a' -> bool for example.
+g would be like int = > a'
+ List.map hd [[1,2],[3,4],[5,66]];
+val it = [1,3,5] : int list
+==============================
