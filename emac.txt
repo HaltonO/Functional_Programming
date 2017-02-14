@@ -1,0 +1,492 @@
+c-x c-f new file
+c-z close
+c-x c-s to save
+c-c c-s to compile REPL (read eval print loop)
+c-c c-d to end sml session
+testing on another file
+when you edit a file quit session and restart
+div, abs, pow
+fun blah (x: type, y: type): returnType =
+if condition
+then
+else
+*andalso vs orelse
+*raise InvalidParameter
+*recursion: when you get to your target, the main initial condition will be satisfied then you just
+return results. it's basically a for loop but instead going linearly you just do small steps each time
+which will take you to the result eventually.
+^ is like + in java for concatenation
+*oldest day in homework probably means newest
+*let
+ declarations
+in
+ expression
+end
+*****************
+* nil is same as []. e.g.
+ nil;
+val it = [] : 'a list
+- [];
+val it = [] : 'a list
+
+* SOME expression creates data type of type OPTION expression e..g SOME "HI" create data type of type OPTION String
+* NONE creates data type of type OPTION
+* issome checks if we have string option, int option, real option and etc..... returns true or fasle
+* valof is similar
+*valOf(SOME "my string"); would return the string "my string"
+** [1,2]@[4,3]  ===========> [1,2,4,3]
+** 2::[1,3] ---------------------> [2,1,3]
+* use option instead of raising exception if you want to avoid undefined values such as deviding by zero.
+*option is a data type instead of exception.. use it to return NONE or Some of 'a e.g. Some of "hello" i.e Some expression
+use valof(SOME "hello") to convert from OPTION string to string. use when function may not return anything.
+Another example: if expression then NONE else SOME expression
+* a = 10;
+   a= 5 ; this is shadowing not assingment the first a = 10 is not changed but shadowed just like how pointers
+work. the REPL will type in Hidden Value than showing the old shadowed values.
+** when you type use "file name" it shows you the bindings, type of arguments and return type if any.
+e.g. val pow = fn : int * int --> int i.e you put arguments separated by commas then -> return type
+or val x = 4: int or val fun = 544: int
+for a list e.g. val x = [2,3,55] the binding will look like val x = [2,3,55]: int list or val x = [(3,2),(2,4)] the binding
+will look like val x = [[3,2),(2,5)] (int * int) list
+another example is val x = [] will give binding like val x =[]: 'a list
+another example is null; will give binding like val it = fn: 'a list ->bool
+*you can access elements of lists or tuples using hash # e.g. #month date
+*you don't need to use keyword return to return in ML. Just put your expression right there.
+* (expression, expression) is a pair. Tuples are 3 expressions.  pairs and tuples elements can be of any type
+whereas Lists elements have to be of the same type
+* ~ is negative instead of -
+* :: is called cons and it constructs or adds items to the front/begining of a list e.g. val x [2,3,4]
+44::x gives [44,2,3,4]
+* [] is empty
+* null expression --> null here is a function that returns true of expression is an empty list otherwise false
+* hd is a function that returns first item, tl returns all the items in the list except the first one
+* div and mod are math functions
+* trying to take hd or tl of an empty list will throw exception
+** fun blah(date: DATE list): DATE list = ---> notice return type . you have to write type of list not just list
+**all arguments in a conditioon have to be the same the ones with if and the ones with else
+(* sum = 7 is not assignment *) more like == in java return boolean
+	else if((#month (hd date)) = month)
+
+no need for parenthesis like pow 3 instead of pow(3)
+andalso
+date.year --> #year date
+List of things [ .... , .... , .... ]
+function f(x: int list, y: int]
+hd variableName is the 1st value in a list - head of list
+tl is tail of list
+install emacs then sml then install sml mode by alt-x list-packages
+** command to run file is use "file.sml"
+** pair of lists = [(1,3),(3,4),(4,322)]
+** (int * int ) is different from (int * int) list. the first one is like  (1,2). second one is like [(2,3)]
+** 2::[] = [2]; correct
+** []::2 is wrong
+** let val = value or expression or even function
+in
+any type of expression
+end
+** Nested functions in any Let expression
+**fun max(x: int list): int =
+  if null x
+  then 0
+  else if null (tl x)
+      then hd x
+  else
+let val y = max(tl x)
+in
+    if y >  hd x
+    then y
+    else
+	hd x
+end
+**
+**  andalso orelse not 
+** = <= >= 
+** <> is the same as !=
+** no mutation in SML. meaning when you create a value like a string it doesn't change at all. it's a like a securtiy feature so e.g. whe you create a list
+and someone in the future can't change it but has to create a new list. We use aliasing instead of copy ^^
+** use this to show the whole list items if they are not showing in the REPEL : Control.Print.printLength := 1024;
+===========================================================================
+PATTERN MATCHING: | is like else, 
+val x = 3;
+val x = 3 : int
+- case x of
+=     1 => "one" => is return type
+=   | 2 => "two"
+=   | 3 => "three";
+stdIn:40.1-43.15 Warning: match nonexhaustive
+          1 => ...
+          2 => ...
+          3 => ...
+
+val it = "three" : string
+-----------------------------------
+Here are the rules of pattern matching; they must be applied recursively:
+* fun blah(str: int ) = you don't have to put : return type = !!!!!!!!!!!!! why!
+The _ pattern matches everything;
+The c pattern matches only itself;
+Pattern x matches every value, with the additional result that identifier x is bound to the value it matched;
+Pattern (p1,..., pn) matches value (v1,...,vn) iff all patterns pi match their corresponding values vi;
+Pattern {x1= p1,...,xn= pn} matches value {x1=v1, ..., xn=vn} iff patterns pi match their corresponding values vi;
+Pattern [] matches [];
+Pattern p1::p2 matches list l iff pattern p1 matches hd l and pattern p2 matches tl l. means if you can find a header then name it p1 and a tail then name it p2
+Pattern X matches X;
+Pattern X(p) will match only value X(v), assuming that pattern p matches value v;
+Note that pattern _::[] could have also been written as [_].
+tail recursive
+** {first="kal", middle="bob", last="johnson"} :: [] = [ {first="kal", middle="bob", last="johnson"} ]
+recursion vs tail recursion
+**
+You need to have the same return type for all patterns.
+fun card_value (suit, rank) =
+  case rank of
+      Ace => 14
+    | King => 13
+    | Queen => 12
+    | Jack => 11
+** use ^ to concatenate strings
+** List is a built-in function and 
+    | Num i => i
+it sounds as if though
+------------
+The fun syntax is syntactic sugar for fn, so anything that you can write with the former can also be written with the latter.
+
+fn directly represents ?-abstraction, which means it is limited to functions of one argument (see this SO 
+question). fun is convenient shorthand that allows you to curry a multi-argument function and bind a
+ name to it with a single bit of syntax,
+--------------
+(fn x => fn y => x+y) 2 3; works. fn simply doesn't have the same syntactic sugar to define curried functions that fun has.
+
+
+---------------
+currying function is one that doesn't take all its arguments up front.. you give it only first argument which
+returns another function which you're supposed to call it with the second argument which returns
+a function which you're supposed to call with the third argument and so on and so forth. The result
+is the last function to be called in this chain.
+-------------
+**String.sub(string, index) e.g. String.sub("hi there", 0) returns h (i.e return character at given index)
+**Char.isUpper("") should return true or false
+ **List.filter (fn s => Char.isUpper(String.sub(s, 0))) ["hi", "hello","Bah","Fuck","Zig Zag", "sd"];
+---> returns a list of only words that starts with capital letter. 
+** List.filter(curried function that takes list_name as initial value --> ?? ) list_name is a curried function that takes one argument a function 
+and returns a list for values evaluated to be true. filter will go over each item in the list
+Exampl:
+val is_sorted = fn x => (fn y => x <= y)
+val test0 = (is_sorted 1) 2
+
+val is_sorted = fn : int -> int -> bool
+val test0 = true : bool
+** fn means curried funnction
+** high order function are
+** List.fold1 takes 2 arguments: curried function that receive 2 args & 2 arguments.
+**All List functions will loop automatically through given list.
+** String.size("hi") = 2
+**
+fun longest_string1(lst: string list): string= list.fold1 (fn (x,y) => if String.size(x) > String.size(y) then x else y) "" lst
+	
+"" aa
+bb aa
+cc aa
+dd aa
+aa
+-------------------------
+**val bindngs means theres equation.
+** fun x( f: int * int -> bool) Notice the arrow here is different from arrow here:
+fn(x,y) => if x then x else y Here arrow is for currying whereas the previosu one is for type of function
+** Any normal function can receive a curried function e.g.
+fun longest_string_helper(help: int * int => bool)
+** fun foo (x,y) = x + y 1st args is a tuple of 2 ints
+Has the type:
+fn : int * int -> int
+** fun bar x y = x + y here it takes one args which is x and return a function y
+It has the type:
+fn : int -> int -> int
+** SML only has single argument functions; foo(x,y) is a function foo taking a single argument, the tuple (x, y).
+**o composition operator (eg. val x = foo o bar, where foo and bar are both functions)
+Ex.
+val longest_capitalized = longest_string1 o only_capitals
+
+** Composition: val x = y o z is like saying y(z)
+** String.explode("hello bi"); returns a list of all character
+val it = [#"h",#"e",#"l",#"l",#"o",#" ",#"b",#"i"] : char list
+** List.rev([1,2,3]); rev takes a list of ints or characters and return reversed list
+val it = [3,2,1] : int list
+- List.rev(["h","e","l"]);
+val it = ["l","e","h"] : string list
+**  String.explode "hi";
+val it = [#"h",#"i"] : char list
+- String.implode [#"h",#"i",#" ",#"y",#"a"];
+val it = "hi ya" : string  --------------> you don't have to call function with parenthesis!!!
+**  String.implode([#"1",#"0",#"0",#"1",#"1",#"0"]); 
+val it = "100110" : string
+  String.implode([#"h",#"e",#"l"]);
+val it = "hel" : string
+****
+ val rev_string = implode o rev o explode;
+val rev_string = fn : string -> string
+- rev_string "hello";
+val it = "olleh" : string
+**('a -> 'b option) -> 'a list -> 'b.
+** NONE => first_answer f tail
+ 
+means call function first_answer and send 2 arguments.
+** exception NoAnswer
+
+raise NoAnswer
+** datatype date = int * int * int
+**- let
+   val a = 1
+   val b = 2
+in
+   3+2
+end;
+val it = 5 : int
+- in end evaluated but inside let is not
+*Every expression in SML has a type. 
+**() is the only value of the type unit, the unit type, a type that carries no information. All functions in ML take exactly one
+ parameter. The unit type can be used as the parameter type and/or
+ return type of a function that performs side effects and don't need to take or return (respectively) any
+ information. It should then be said that this val it = () : unit occurs in those situations when the interactive top-level is 
+interested in some side-effect such as interpreting the content of a file and loading its effect into the top-level. – Simon Shine Oct
+add a comment
+**val it = #"n" : char
+- ();
+val it = () : unit
+- 3.3;
+val it = 3.3 : real
+ ();
+val it = () : unit
+ fun x(y: int)= 3+3;
+val x = fn : int -> int
+** STANDARD:
+val name of function = fn : type it takes -> type it returns
+OR
+val it = value : type of value
+OR
+val variable = variable value : variable type
+** val str = "h";
+val str = "h": string
+OR
+val it = (variable1, variable2 ....etc) : type of variable1 * type of variable2 * .....etc
+** val character = #"h";
+val character = #"h" : char
+OR
+case expression of
+conditition1 => return type
+| condition2 => return type
+val it = REAL VALUE RETURNED : type of returned value
+true;
+val it = true : bool
+~3;
+val it = ~3 : int
+** if b then e1 else e2 ---> e1 and e2 have to be same type.
+** operands have to be same type in addition, subtraction, multiplication (int or real)
+** operands have to be of type "real" in division e.g. (real division):
+ 3.0/3.0;
+val it = 1.0 : real
+** operands have to be "int" when using "div" e.g. (integer division):
+ 3 div 3;
+val it = 1 : int
+** Concatenation of strings using ^. you cannot use cons operation with strings
+ "hi" ^ "th";
+val it = "hith" : string
+** (3,2,"hi") is a tuple. ([3,2], "hi") is a pair.
+**
+ SOME 3;
+val it = SOME 3 : int option
+- NONE;
+val it = NONE : 'a option
+- isSome (SOME 3);
+val it = true : bool
+- isSome NONE;
+val it = false: bool
+- valOf (SOME 3);
+val it = 3 : int
+**
+ SOME 1;
+val it = SOME 1 : int option
+- SOME "hi";
+val it = SOME "hi" : string option
+- SOME("HI", 3);
+val it = SOME ("HI",3) : (string * int) option
+- [NONE, NONE, SOME 1, SOME 3, NONE];
+val it = [NONE,NONE,SOME 1,SOME 3,NONE] : int option list
+** Defining new data type: 
+datatype Date = int * int * int
+type DATE  = {year:int, month:int, day: int}
+
+type DATE = (int * int * int)
+these are just declartions so you can't use them unless e.g.
+fun is_older(d1: DATE, d2: DATE): bool =
+  if #1 d1 < #1 d2
+	then true
+else false
+** val (x,y) = (42, false);
+val x = 42 : int
+val y = false : bool
+** 
+Pattern Matching using case: ur trying to match conditions with your expression
+case expression of
+condition1 => return expression
+| condition2 => return expression
+| ....... etc
+Note that expression type, conditions have to be the same type. ALSO, return expressions must be of the same type but
+doesn't have to be same as conditions and expression type.
+** 
+_ is called wildcard and matches anything
+x matches anything and binds value found to x
+42 the integer 42
+false the boolean false
+(pat1; pat2) a pair (v1; v2) if pati matches vi
+(x; _) matches (false, 42), binds x to false
+(pat1; pat2; pat3) a triple (v1; v2; v3) ...
+NONE matches NONE of any option type
+SOME pat matches SOME v if pat matches v
+pat1::pat2
+
+Examples:
+ case (3,"hi",SOME 4) of
+= (a,b, SOME c) => "yes"
+= | _ => "no";
+val it = "yes" : string
+------------------------------
+ case [1,2,3,4,5,6] of 
+= head::tail => head
+= | _ => 0;
+val it = 1 : int    -----------> notice the type
+---------------------------
+ case (34,true) of
+= (23, false) => true
+= | (x, false) => false
+= | _ => true;
+val it = true : bool ------------------> notice the type.
+- case [] of 
+= nil => "empty"
+= | _ => "non-empty";
+val it = "empty" : string
+----------------------------------
+ fun length nil = 0
+| length (_::l') = 1 + (length l');
+val length = fn : 'a list -> int
+- length([]);
+val it = 0 : int
+----------------------------
+Functions declartions:
+fun x(arguments): return type =
+fun x(x: int)=
+------------------------------
+fun length ls = case ls of
+                    nil => 0
+                  | _::l' => 1 + (length l')
+is exactlly same as this but longer version:
+fun length nil = 0
+| length (_::l') = 1 + (length l')
+-----------------------------
+fun x 3 = 0
+  | x 4 = 1
+  | x _ = 2
+x(3);
+val it = 0 : int
+-----------------------------
+exception NoAnswer
+??? => raise NoAnswer
+---------------------------
+fun canRentCar (p as (_,age)) =
+if age <= 0 then raise (NegativeAge p)
+else age >= 25 
+y as pattern matches the entire value and binds it to y.
+--------------------------
+Evaluation Rules
+syntax: letters, numbers underscore ....etc
+type check in static environment
+evaluate in dynamic environment
+--------------------------
+Variables are Immutable
+-----------------------
+fun pow (x:int, y:int) = (* correct only for y >= 0 *)
+if y=0
+then 1
+else x * pow(x,y-1)
+----------------------------
+type check a function
+----------------------------
+fun swap (pr : int*bool) =
+(#2 pr, #1 pr)
+fun sum_two_pairs (pr1 : int*int, pr2 : int*int) =
+(#1 pr1) + (#2 pr1) + (#1 pr2) + (#2 pr2)
+fun div_mod (x : int, y : int) = (* note: returning a pair is a real pain in Java *)
+(x div y, x mod y)
+fun sort_pair (pr : int*int) =
+if (#1 pr) < (#2 pr)
+then pr
+else ((#2 pr),(#1 pr))
+--------------------------------
+use #1, #2 ... etc to access pairs and tuples elements
+((7,true),9) which has type (int * bool) * int
+null checks a list and returns true if it's empty otherwise false
+hd returns first elemnt of list otherwise exception if empty
+------------------------------
+fun sum_list (xs : int list) =
+if null xs
+then 0
+else hd(xs) + sum_list(tl xs)
+fun countdown (x : int) =
+if x=0
+then []
+else x :: countdown(x-1)
+fun append (xs : int list, ys : int list) =
+if null xs
+then ys
+else (hd xs) :: append(tl xs, ys)
+fun sum_pair_list (xs : (int * int) list) =
+if null xs
+then 0
+else #1 (hd xs) + #2 (hd xs) + sum_pair_list(tl xs)
+fun firsts (xs : (int * int) list) =
+if null xs
+then []
+else (#1 (hd xs))::(firsts(tl xs))
+fun seconds (xs : (int * int) list) =
+if null xs
+then []
+else (#2 (hd xs))::(seconds(tl xs))
+fun sum_pair_list2 (xs : (int * int) list) =
+(sum_list (firsts xs)) + (sum_list (seconds xs))
+-----------------------------------
+fun countup_from1_better (x:int) =
+let fun count (from:int) =
+if from=x
+then x::[]
+else from :: count(from+1)
+in
+count 1
+end
+-----------------------------------
+We can use let-expressions to avoid repeated computations.
+------------------------------------
+This version computes the max of the tail of
+the list once and stores the resulting value in tl_ans.
+fun good_max (xs : int list) =
+if null xs
+then 0 (* note: bad style; see below *)
+else if null (tl xs)
+then hd xs
+else
+(* for style, could also use a let-binding for hd xs *)
+let val tl_ans = good_max(tl xs)
+in
+if hd xs > tl_ans
+then hd xs
+else tl_ans
+end
+-------------------------------------
+fun better_max (xs : int list) =
+if null xs
+then NONE
+else
+let val tl_ans = better_max(tl xs)
+in if isSome tl_ans andalso valOf tl_ans > hd xs
+then tl_ans
+else SOME (hd xs)
+end
+-------------------------------
+if e1<> e2 same as if not (e1=e2)
