@@ -1,3 +1,4 @@
+These are notes in points form for the "SML part of the course"
 c-x c-f new file
 c-z close
 c-x c-s to save
@@ -246,7 +247,7 @@ val it = 5 : int
  parameter. The unit type can be used as the parameter type and/or
  return type of a function that performs side effects and don't need to take or return (respectively) any
  information. It should then be said that this val it = () : unit occurs in those situations when the interactive top-level is 
-interested in some side-effect such as interpreting the content of a file and loading its effect into the top-level. – Simon Shine Oct
+interested in some side-effect such as interpreting the content of a file and loading its effect into the top-level. Â– Simon Shine Oct
 add a comment
 **val it = #"n" : char
 - ();
@@ -400,12 +401,14 @@ syntax: letters, numbers underscore ....etc
 type check in static environment
 evaluate in dynamic environment
 --------------------------
-Variables are Immutable
+Variables are Immutable
+
 -----------------------
 fun pow (x:int, y:int) = (* correct only for y >= 0 *)
 if y=0
 then 1
-else x * pow(x,y-1)
+else x * pow(x,y-1)
+
 ----------------------------
 type check a function
 ----------------------------
@@ -445,12 +448,14 @@ fun firsts (xs : (int * int) list) =
 if null xs
 then []
 else (#1 (hd xs))::(firsts(tl xs))
-fun seconds (xs : (int * int) list) =
+fun seconds (xs : (int * int) list) =
+
 if null xs
 then []
 else (#2 (hd xs))::(seconds(tl xs))
 fun sum_pair_list2 (xs : (int * int) list) =
-(sum_list (firsts xs)) + (sum_list (seconds xs))
+(sum_list (firsts xs)) + (sum_list (seconds xs))
+
 -----------------------------------
 fun countup_from1_better (x:int) =
 let fun count (from:int) =
@@ -459,7 +464,9 @@ then x::[]
 else from :: count(from+1)
 in
 count 1
-end
+end
+
+
 -----------------------------------
 We can use let-expressions to avoid repeated computations.
 ------------------------------------
